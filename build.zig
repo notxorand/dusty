@@ -32,7 +32,7 @@ pub fn build(b: *std.Build) void {
             "src/llhttp/api.c",
             "src/llhttp/http.c",
         },
-        .flags = &.{"-std=c99"},
+        .flags = &.{ "-std=c99", "-D__STDC_WANT_IEC_60559_BFP_EXT__" },
     });
     mod.addIncludePath(b.path("src/llhttp"));
 
