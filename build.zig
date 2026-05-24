@@ -23,6 +23,8 @@ pub fn build(b: *std.Build) void {
         .optimize = optimize,
     });
     translate_c.addIncludePath(b.path("src/llhttp"));
+    translate_c.defineCMacro("_GNU_SOURCE", "");
+    translate_c.defineCMacro("__STDC_WANT_IEC_60559_BFP_EXT__", "");
     mod.addImport("llhttp", translate_c.createModule());
 
     mod.link_libc = true;
@@ -32,7 +34,7 @@ pub fn build(b: *std.Build) void {
             "src/llhttp/api.c",
             "src/llhttp/http.c",
         },
-        .flags = &.{ "-std=c99", "-D__STDC_WANT_IEC_60559_BFP_EXT__" },
+        .flags = &.{ "-std=gnu99", "-D_GNU_SOURCE", "-D__STDC_WANT_IEC_60559_BFP_EXT__" },
     });
     mod.addIncludePath(b.path("src/llhttp"));
 
